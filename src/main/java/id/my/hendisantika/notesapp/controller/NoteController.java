@@ -93,4 +93,13 @@ public class NoteController {
             return noteService.deleteNote(userId, id);
         return ResponseEntity.status(429).body("Request limit exceeded");
     }
+
+    @PostMapping("/{noteId}/share")
+    ResponseEntity<?> shareNote(@PathVariable Long noteId, Authentication authentication) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
+
+        if (rateLimitingService.allowRequest(userId.toString()))
+            return noteService.shareNote(noteId, userId);
+        return ResponseEntity.status(429).body("Request limit exceeded");
+    }
 }
