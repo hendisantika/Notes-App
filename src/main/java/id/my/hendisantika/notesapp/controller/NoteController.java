@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +38,14 @@ public class NoteController {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
         if (rateLimitingService.allowRequest(userId.toString()))
             return noteService.getNotes(userId);
+        return ResponseEntity.status(429).body("Request limit exceeded");
+    }
+
+    @GetMapping("/{noteId}")
+    ResponseEntity<?> getNoteByNoteId(Authentication authentication, @PathVariable Long noteId) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
+        if (rateLimitingService.allowRequest(userId.toString()))
+            return noteService.getNoteByNoteId(userId, noteId);
         return ResponseEntity.status(429).body("Request limit exceeded");
     }
 }
