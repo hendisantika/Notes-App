@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -28,6 +29,15 @@ public class NoteService {
         Optional<List<Note>> notes = noteRepository.findByUserId(userId);
         if (notes.isEmpty())
             return ResponseEntity.badRequest().body("Error: No notes found");
+        return ResponseEntity.ok(notes);
+    }
+
+    public ResponseEntity<?> getNoteByNoteId(Long userId, Long noteId) {
+        Optional<Note> notes = noteRepository.findByNoteId(noteId);
+        if (notes.isEmpty())
+            return ResponseEntity.badRequest().body("Error: No note found.");
+        else if (!Objects.equals(notes.get().getUserId(), userId) && !notes.get().getIsNoteShared())
+            return ResponseEntity.badRequest().body("Error: Note access denied.");
         return ResponseEntity.ok(notes);
     }
 }
