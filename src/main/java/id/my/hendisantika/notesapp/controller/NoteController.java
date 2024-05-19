@@ -1,10 +1,14 @@
 package id.my.hendisantika.notesapp.controller;
 
+import id.my.hendisantika.notesapp.security.UserDetailsImpl;
 import id.my.hendisantika.notesapp.service.NoteService;
 import id.my.hendisantika.notesapp.service.RateLimitingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,4 +31,12 @@ public class NoteController {
     private final NoteService noteService;
 
     private final RateLimitingService rateLimitingService;
+
+    @GetMapping("/")
+    ResponseEntity<?> getNotesByUserId(Authentication authentication) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
+        if (rateLimitingService.allowRequest(userId.toString()))
+            return noteService.getNotes(userId);
+        return ResponseEntity.status(429).body("Request limit exceeded");
+    }
 }
