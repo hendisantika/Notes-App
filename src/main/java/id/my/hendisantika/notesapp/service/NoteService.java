@@ -63,4 +63,10 @@ public class NoteService {
         return ResponseEntity.badRequest().body("Note with given id does not exist.");
     }
 
+    public ResponseEntity<?> searchNotes(Long userId, String query) {
+        Optional<List<Note>> notes = noteRepository.findByUserIdAndTitleContainingOrContentContaining(userId, query, query);
+        if (notes.isPresent())
+            return ResponseEntity.ok(notes);
+        return ResponseEntity.badRequest().body("No results found.");
+    }
 }
