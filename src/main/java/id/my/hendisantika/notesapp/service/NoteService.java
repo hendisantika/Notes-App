@@ -46,4 +46,9 @@ public class NoteService {
         noteRepository.save(note);
         return ResponseEntity.ok("Note saved successfully.");
     }
+
+    public ResponseEntity<?> deleteNote(Long userId, Long noteId) {
+        noteRepository.deleteByUserIdAndNoteId(userId, noteId);
+        return ResponseEntity.ok("Note deleted successfully.");
+    }
 }
