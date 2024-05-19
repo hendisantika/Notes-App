@@ -51,4 +51,16 @@ public class NoteService {
         noteRepository.deleteByUserIdAndNoteId(userId, noteId);
         return ResponseEntity.ok("Note deleted successfully.");
     }
+
+    public ResponseEntity<?> updateNote(Long id, Note newNote, Long userId) {
+        Optional<Note> oldNote = noteRepository.findByUserIdAndNoteId(userId, id);
+        if (oldNote.isPresent()) {
+            oldNote.get().setTitle(newNote.getTitle());
+            oldNote.get().setContent(newNote.getContent());
+            noteRepository.save(oldNote.get());
+            return ResponseEntity.ok("Note updated successfully.");
+        }
+        return ResponseEntity.badRequest().body("Note with given id does not exist.");
+    }
+
 }
