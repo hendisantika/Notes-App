@@ -69,4 +69,16 @@ public class NoteService {
             return ResponseEntity.ok(notes);
         return ResponseEntity.badRequest().body("No results found.");
     }
+
+    public ResponseEntity<?> shareNote(Long noteId, Long userId) {
+        // Check if the current user owns the note
+        Optional<Note> note = noteRepository.findByUserIdAndNoteId(userId, noteId);
+        if (note.isPresent()) {
+            // Share the note
+            note.get().setIsNoteShared(true);
+            noteRepository.save(note.get());
+            return ResponseEntity.ok("Shared the note successfully.");
+        }
+        return ResponseEntity.badRequest().body("Given note is not owned by the user.");
+    }
 }
