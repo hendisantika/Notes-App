@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,4 +85,12 @@ public class NoteController {
         return ResponseEntity.status(429).body("Request limit exceeded");
     }
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteNoteById(@PathVariable Long id, Authentication authentication) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
+
+        if (rateLimitingService.allowRequest(userId.toString()))
+            return noteService.deleteNote(userId, id);
+        return ResponseEntity.status(429).body("Request limit exceeded");
+    }
 }
