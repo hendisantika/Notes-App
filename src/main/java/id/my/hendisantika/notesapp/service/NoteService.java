@@ -40,4 +40,10 @@ public class NoteService {
             return ResponseEntity.badRequest().body("Error: Note access denied.");
         return ResponseEntity.ok(notes);
     }
+
+    public ResponseEntity<?> createNote(Note note) {
+        note.setIsNoteShared(false);
+        noteRepository.save(note);
+        return ResponseEntity.ok("Note saved successfully.");
+    }
 }
