@@ -1,5 +1,7 @@
 package id.my.hendisantika.notesapp.security;
 
+import id.my.hendisantika.notesapp.security.jwt.AuthEntryPointJwt;
+import id.my.hendisantika.notesapp.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

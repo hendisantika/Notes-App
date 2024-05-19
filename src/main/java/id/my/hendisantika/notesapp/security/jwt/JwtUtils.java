@@ -1,5 +1,6 @@
 package id.my.hendisantika.notesapp.security.jwt;
 
+import id.my.hendisantika.notesapp.security.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
