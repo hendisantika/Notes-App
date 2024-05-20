@@ -23,4 +23,10 @@ public class TestController {
     public String allAccess() {
         return "Public Content.";
     }
+
+    @GetMapping("/user")
+    public String userAccess() {
+        return "User Content.";
+    }
+
 }
