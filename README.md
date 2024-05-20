@@ -66,7 +66,7 @@ documentation: [PostgreSQL Installation Guide](https://www.postgresql.org/downlo
 Clone the Spring Boot 3 RESTful API repository from GitHub and open in an IDE:
 
 ```bash
-git clone https://github.com/deeppatel23/NotesBackend.git
+git clone https://github.com/hendisantika/Notes-App.git
 
 ```
 
@@ -84,7 +84,7 @@ spring.datasource.password=your_postgresql_password
 
 ```
 cd NotesBackend
-./mvnw spring-boot:run
+./mvnw clean spring-boot:run
 ```
 
 ### 6. Test with Postman
