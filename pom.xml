@@ -10,7 +10,7 @@
     </parent>
     <groupId>id.my.hendisantika</groupId>
     <artifactId>Notes-App</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>Notes-App</name>
     <description>Notes-App</description>
     <properties>
