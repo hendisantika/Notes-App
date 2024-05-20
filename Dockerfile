@@ -18,7 +18,7 @@ RUN echo $GIT_VERSION_TAG > GIT_VERSION_TAG.txt
 RUN echo $GIT_COMMIT_MESSAGE > GIT_COMMIT_MESSAGE.txt
 RUN echo $GIT_VERSION_HASH > GIT_VERSION_HASH.txt
 
-RUN mvn clean package
+#RUN mvn clean package
 
 #FROM adoptopenjdk/openjdk21:eclipse-temurin-21-alpine
 #FROM bellsoft/liberica-openjdk-debian:21
