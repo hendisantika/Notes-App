@@ -26,10 +26,14 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - uses: actions/upload-artifact@master
+    - name: Copy Jar file
+      run: cp target/*.jar app.jar
+
+    - uses: actions/upload-artifact@v4
       with:
         name: jar-file
         path: app.jar
@@ -40,9 +44,9 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@master
+      - uses: actions/download-artifact@v4
         with:
           name: jar-file
           path: app.jar
