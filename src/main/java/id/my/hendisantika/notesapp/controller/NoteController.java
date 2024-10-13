@@ -5,6 +5,10 @@ import id.my.hendisantika.notesapp.payload.request.NoteRequest;
 import id.my.hendisantika.notesapp.security.UserDetailsImpl;
 import id.my.hendisantika.notesapp.service.NoteService;
 import id.my.hendisantika.notesapp.service.RateLimitingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -41,6 +45,23 @@ public class NoteController {
     private final RateLimitingService rateLimitingService;
 
     @GetMapping("/")
+    @Operation(
+            summary = "List All Notes",
+            description = "List All Notes.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> getNotesByUserId(Authentication authentication) {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
         if (rateLimitingService.allowRequest(userId.toString()))
@@ -49,6 +70,23 @@ public class NoteController {
     }
 
     @GetMapping("/{noteId}")
+    @Operation(
+            summary = "Get Note By ID",
+            description = "Get Note By ID.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> getNoteByNoteId(Authentication authentication, @PathVariable Long noteId) {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
         if (rateLimitingService.allowRequest(userId.toString()))
@@ -57,6 +95,23 @@ public class NoteController {
     }
 
     @PostMapping("/")
+    @Operation(
+            summary = "Add New Note",
+            description = "Add New Note.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            NoteRequest.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> saveNote(@RequestBody NoteRequest noteRequest, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = userDetails.getId();
@@ -75,6 +130,23 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+            summary = "Update Note",
+            description = "Update Note.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Note.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> updateNote(@PathVariable Long id,
                                  @RequestBody Note note,
                                  Authentication authentication) {
@@ -87,6 +159,23 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Delete Note",
+            description = "Delete Note.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Note.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> deleteNoteById(@PathVariable Long id, Authentication authentication) {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
 
@@ -96,6 +185,23 @@ public class NoteController {
     }
 
     @PostMapping("/{noteId}/share")
+    @Operation(
+            summary = "Share Note",
+            description = "Share Note.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Note.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> shareNote(@PathVariable Long noteId, Authentication authentication) {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
 
@@ -105,6 +211,23 @@ public class NoteController {
     }
 
     @GetMapping("/search")
+    @Operation(
+            summary = "Search Note",
+            description = "Search Note.",
+            tags = {"Notes"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Note.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     ResponseEntity<?> searchQuery(@RequestParam String query, Authentication authentication) {
         Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getId();
 
