@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController {
     @GetMapping("/all")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "All Accesses",
             description = "All Accesses.",
@@ -48,6 +50,7 @@ public class TestController {
     }
 
     @GetMapping("/user")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "User Accesses",
             description = "User Accesses.",
@@ -70,6 +73,7 @@ public class TestController {
     }
 
     @GetMapping("/mod")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Moderator Accesses",
             description = "Moderator Accesses.",
@@ -93,6 +97,7 @@ public class TestController {
     }
 
     @GetMapping("/admin")
+    @SecurityRequirement(name = "Bearer Authentication")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
             summary = "Admin Accesses",

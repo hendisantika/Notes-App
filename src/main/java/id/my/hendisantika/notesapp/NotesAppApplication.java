@@ -3,6 +3,7 @@ package id.my.hendisantika.notesapp;
 import id.my.hendisantika.notesapp.model.ERole;
 import id.my.hendisantika.notesapp.model.Role;
 import id.my.hendisantika.notesapp.repository.RoleRepository;
+import id.my.hendisantika.notesapp.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +17,9 @@ public class NotesAppApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(RoleRepository roleRepository) {
+    public CommandLineRunner demo(RoleRepository roleRepository, UserRepository userRepository) {
         return (args) -> {
+            userRepository.deleteAll();
             roleRepository.deleteAll();
             roleRepository.save(new Role(1, ERole.ROLE_ADMIN));
             roleRepository.save(new Role(1, ERole.ROLE_USER));

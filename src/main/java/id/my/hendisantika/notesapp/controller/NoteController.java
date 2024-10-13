@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -45,6 +46,7 @@ public class NoteController {
     private final RateLimitingService rateLimitingService;
 
     @GetMapping("/")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "List All Notes",
             description = "List All Notes.",
@@ -70,6 +72,7 @@ public class NoteController {
     }
 
     @GetMapping("/{noteId}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Get Note By ID",
             description = "Get Note By ID.",
@@ -95,6 +98,7 @@ public class NoteController {
     }
 
     @PostMapping("/")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Add New Note",
             description = "Add New Note.",
@@ -130,6 +134,7 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Update Note",
             description = "Update Note.",
@@ -159,6 +164,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Delete Note",
             description = "Delete Note.",
@@ -185,6 +191,7 @@ public class NoteController {
     }
 
     @PostMapping("/{noteId}/share")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Share Note",
             description = "Share Note.",
@@ -211,6 +218,7 @@ public class NoteController {
     }
 
     @GetMapping("/search")
+    @SecurityRequirement(name = "Bearer Authentication")
     @Operation(
             summary = "Search Note",
             description = "Search Note.",

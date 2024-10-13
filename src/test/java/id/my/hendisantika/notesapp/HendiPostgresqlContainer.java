@@ -13,7 +13,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
  * To change this template use File | Settings | File Templates.
  */
 public class HendiPostgresqlContainer extends PostgreSQLContainer<HendiPostgresqlContainer> {
-    private static final String IMAGE_VERSION = "postgres:16";
+    private static final String IMAGE_VERSION = "postgres:17-alpine3.20";
     private static HendiPostgresqlContainer container;
 
     private HendiPostgresqlContainer() {

@@ -1,5 +1,7 @@
 package id.my.hendisantika.notesapp.config;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,12 @@ import org.springframework.context.annotation.Configuration;
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
+@SecurityScheme(
+        name = "Bearer Authentication",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 public class OpenAPIConfig {
 
     @Bean
