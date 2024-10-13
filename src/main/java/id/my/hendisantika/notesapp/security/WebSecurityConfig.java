@@ -97,13 +97,13 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui", "/swagger-ui/**", "/v3/api-doc", "/v3/api-doc/**").permitAll()
                         .requestMatchers("/api/auth", "/api/auth/**").permitAll()
-                                .requestMatchers("/api/test/**").permitAll()
-                                .requestMatchers("/signup").permitAll()
-                                .requestMatchers("/signin").permitAll()
-                                .requestMatchers("/user").permitAll()
-                                .requestMatchers("/notes").permitAll()
-                                .requestMatchers("/api/notes/**").permitAll()
-                                .anyRequest().authenticated()
+                        .requestMatchers("/api/test/**").permitAll()
+                        .requestMatchers("/api/auth/signup").permitAll()
+                        .requestMatchers("/api/auth/signin").permitAll()
+                        .requestMatchers("/user").permitAll()
+                        .requestMatchers("/notes").permitAll()
+                        .requestMatchers("/api/notes/**").permitAll()
+                        .anyRequest().authenticated()
                 );
 
         http.authenticationProvider(authenticationProvider());
