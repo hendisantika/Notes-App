@@ -1,6 +1,11 @@
 package id.my.hendisantika.notesapp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +26,67 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController {
     @GetMapping("/all")
+    @Operation(
+            summary = "All Accesses",
+            description = "All Accesses.",
+            tags = {"Test"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     public String allAccess() {
         return "Public Content.";
     }
 
     @GetMapping("/user")
+    @Operation(
+            summary = "User Accesses",
+            description = "User Accesses.",
+            tags = {"Test"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     public String userAccess() {
         return "User Content.";
     }
 
     @GetMapping("/mod")
+    @Operation(
+            summary = "Moderator Accesses",
+            description = "Moderator Accesses.",
+            tags = {"Test"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     @PreAuthorize("hasRole('MODERATOR')")
     public String moderatorAccess() {
         return "Moderator Board.";
@@ -38,6 +94,23 @@ public class TestController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Admin Accesses",
+            description = "Admin Accesses.",
+            tags = {"Test"})
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    description = "Success",
+                    responseCode = "200",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation =
+                            Authentication.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not found", responseCode = "404",
+                    content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal error", responseCode = "500"
+                    , content = @Content)
+    }
+    )
     public String adminAccess() {
         return "Admin Board.";
     }

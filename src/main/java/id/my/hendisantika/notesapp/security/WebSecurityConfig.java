@@ -94,8 +94,9 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         http.csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/**").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/swagger-ui", "/swagger-ui/**", "/v3/api-doc", "/v3/api-doc/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/signup").permitAll()
                                 .requestMatchers("/signin").permitAll()
