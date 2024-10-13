@@ -96,31 +96,33 @@ Open Postman and test the API endpoints.
 ### Screenshots
 
 - SignUp
-  ![SignUp](assets/signup.png)
+  ![SignUp](img/SignUp.png "Sign Up")
+
+- ![SignUp](img/SignUp2.png "Sign Up")
 
 - SignIn
-  ![SignIn](assets/signin.png)
+  ![SignIn](img/signIn.png "SignIn")
 
 - Authentication Bearer
-  ![Authentication Bearer](assets/authentication-bearer.png)
+  ![Authentication Bearer](img/authentication-bearer.png)
 
 - Get all Notes
-  ![Get all Note](assets/get_all_notes.png)
+  ![Get all Note](img/list.png "Get all Notes")
 
 - Get Note by NodeId
-  ![Get Note by NodeId](assets/get_note_by_noteid.png)
+  ![Get Note by NodeId](img/getById.png "Get Note by NodeId")
 
 - Save Notes
-  ![Save Notes](assets/save_notes.png)
+  ![Save Notes](img/add.png "Save Notes")
 
 - Update Notes
-  ![Update Notes](assets/update_notes.png)
+  ![Update Notes](img/update.png "Update Notes")
 
 - Delete Notes by NodeId
-  ![Delete Notes by NodeId](assets/delete_note_bynoteid.png)
+  ![Delete Notes by NodeId](img/delete.png "Delete Notes by NodeId")
 
 - Search in note title/content
-  ![Search in note title/content](assets/search_query.png)
+  ![Search in note title/content](img/search.png "Search in note title/content")
 
 - Notes access denies if note is not owned by that user
-  ![Notes access denies if note is not owned by that user](assets/notes_access_denied.png)
+  ![Notes access denies if note is not owned by that user](img/403.png "Notes access denies if note is not owned by that user")
