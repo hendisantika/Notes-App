@@ -1,5 +1,5 @@
 # Create a new image for running the application
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 LABEL authors="hendisantika"
 
 RUN mkdir /project
