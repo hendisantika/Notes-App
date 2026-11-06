@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.mvn
+.DS_Store
+*.iml
+img
+logs
+postgres
+target
+Dockerfile
+compose.yml
+*.md
+*.json
