@@ -1,6 +1,6 @@
 package id.my.hendisantika.notesapp;
 
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
  * Time: 07:25
  * To change this template use File | Settings | File Templates.
  */
-public class HendiPostgresqlContainer extends PostgreSQLContainer<HendiPostgresqlContainer> {
+public class HendiPostgresqlContainer extends PostgreSQLContainer {
     private static final String IMAGE_VERSION = "postgres:17-alpine3.20";
     private static HendiPostgresqlContainer container;
 

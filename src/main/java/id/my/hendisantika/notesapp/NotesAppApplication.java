@@ -21,9 +21,9 @@ public class NotesAppApplication {
         return (args) -> {
             userRepository.deleteAll();
             roleRepository.deleteAll();
-            roleRepository.save(new Role(1, ERole.ROLE_ADMIN));
-            roleRepository.save(new Role(1, ERole.ROLE_USER));
-            roleRepository.save(new Role(1, ERole.ROLE_MODERATOR));
+            roleRepository.save(new Role(null, ERole.ROLE_ADMIN));
+            roleRepository.save(new Role(null, ERole.ROLE_USER));
+            roleRepository.save(new Role(null, ERole.ROLE_MODERATOR));
         };
     }
 }

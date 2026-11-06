@@ -2,16 +2,19 @@ package id.my.hendisantika.notesapp;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class NotesAppApplicationTests {
 
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+    static PostgreSQLContainer postgres = new PostgreSQLContainer(
             "postgres:17-alpine3.20"
     );
     @LocalServerPort
@@ -34,4 +37,9 @@ class NotesAppApplicationTests {
         registry.add("spring.datasource.password", postgres::getPassword);
     }
 
+    @Test
+    void contextLoads() {
+        assertThat(postgres.isRunning()).isTrue();
+        assertThat(port).isNotNull().isPositive();
+    }
 }
