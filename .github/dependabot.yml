@@ -1,9 +1,105 @@
+# Dependabot configuration
+# Docs: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 version: 2
 updates:
+  # Maven dependencies (pom.xml) + Maven Wrapper
   - package-ecosystem: maven
     directory: "/"
     schedule:
       interval: daily
-      time: '21:00'
+      time: "21:00"
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
+    target-branch: main
+    labels:
+      - dependencies
+      - java
+    assignees:
+      - hendisantika
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: scope
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+          - "org.springframework*"
+      springdoc:
+        patterns:
+          - "org.springdoc*"
+      jjwt:
+        patterns:
+          - "io.jsonwebtoken*"
+      testcontainers:
+        patterns:
+          - "org.testcontainers*"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven*"
+    ignore:
+      # Major upgrades of Spring Boot are done manually
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        update-types: [ "version-update:semver-major" ]
+
+  # GitHub Actions used in .github/workflows
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - github-actions
+    assignees:
+      - hendisantika
+    commit-message:
+      prefix: "ci(deps)"
+      include: scope
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Base images in Dockerfile
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - docker
+    assignees:
+      - hendisantika
+    commit-message:
+      prefix: "build(docker)"
+      include: scope
+    ignore:
+      # Stay on the Java 25 LTS line; bump the major JDK manually
+      - dependency-name: "eclipse-temurin"
+        update-types: [ "version-update:semver-major" ]
+      - dependency-name: "maven"
+        update-types: [ "version-update:semver-major" ]
+
+  # Postgres image in compose.yml
+  - package-ecosystem: docker-compose
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - docker
+    commit-message:
+      prefix: "build(compose)"
+      include: scope
