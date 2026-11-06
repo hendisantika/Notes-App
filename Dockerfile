@@ -1,14 +1,15 @@
 # syntax=docker/dockerfile:1
 
 # ---------- Build stage ----------
-FROM maven:3.9-eclipse-temurin-26-alpine AS build
+FROM eclipse-temurin:25-jdk-alpine AS build
 LABEL authors="hendisantika"
 
 WORKDIR /project
 
-# Cache dependencies first
-COPY pom.xml .
-RUN mvn -B -q dependency:go-offline
+# Cache dependencies first (Maven version comes from the wrapper)
+COPY mvnw pom.xml ./
+COPY .mvn ./.mvn
+RUN ./mvnw -B -q -ntp dependency:go-offline
 
 COPY src ./src
 
@@ -22,7 +23,7 @@ RUN echo "$GIT_VERSION_TAG" > GIT_VERSION_TAG.txt \
     && echo "$GIT_COMMIT_MESSAGE" > GIT_COMMIT_MESSAGE.txt \
     && echo "$GIT_VERSION_HASH" > GIT_VERSION_HASH.txt
 
-RUN mvn -B clean package -DskipTests
+RUN ./mvnw -B -ntp clean package -DskipTests
 
 # ---------- Runtime stage ----------
 FROM eclipse-temurin:25-jre-alpine

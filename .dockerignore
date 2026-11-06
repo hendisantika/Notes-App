@@ -1,7 +1,6 @@
 .git
 .github
 .idea
-.mvn
 .DS_Store
 *.iml
 img
