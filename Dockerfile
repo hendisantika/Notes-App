@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---------- Build stage ----------
-FROM maven:3.9.16-eclipse-temurin-25-alpine AS build
+FROM maven:3.9-eclipse-temurin-26-alpine AS build
 LABEL authors="hendisantika"
 
 WORKDIR /project
